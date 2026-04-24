@@ -3,11 +3,11 @@ Extended isolation forest based gene prioritization (EIFGP) is a flexible approa
 The underlying framework is an extended isolation forest (Hariri et al. 2018). Furthermore the script computes Approximate Shapley Values (https://cran.r-project.org/web/packages/fastshap/index.html) for the top n predictions to obtain feature explainability.
 
 ##  Required R-packages
-*  data.table
-*  optparse
-*  isotree
-*  fastshap
-*  ggplot2
+*  data.table v. 1.17.0
+*  optparse v. 1.7.5
+*  isotree v. 0.6.1.4
+*  fastshap v. 0.1.1
+*  ggplot2 v. 3.5.2
 
 ##  Required inputs
 *  inData.txt. This is a file providing information about the locations of the input files, which columns to consider, their names, if gene symbol/and or ensemblID are given, and if log transformation should be applied for the feature prior to EIFGP. An example can be found in the inLists folder.
