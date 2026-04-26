@@ -2,7 +2,7 @@
 Extended isolation forest based gene prioritization (EIFGP) is a flexible approach for gene prioritization using unsupervised machine learning. It is designed to integrate association statistics from cohort studies, tissue/cell type specificity values, and random walk with restart probabilities. However additional datatypes can be provided aswell.
 The underlying framework is an extended isolation forest (Hariri et al. 2018). Furthermore the script computes Approximate Shapley Values (https://cran.r-project.org/web/packages/fastshap/index.html) for the top n predictions to obtain feature explainability.
 
-##  Required R-packages
+##  Required R-packages (R v. 4.3.0)
 *  data.table v. 1.17.0
 *  optparse v. 1.7.5
 *  isotree v. 0.6.1.4
