@@ -20,6 +20,12 @@ option_list = list(
 
   make_option("--shapNo", type="numeric", default=NULL,
               help="Number of top predictions to compute Approximate Shapley values for"),
+
+  make_option("--caABCList", type="character", default=NULL,
+              help="Path to caABC regions and names"),
+
+  make_option("--codInf", type="character", default=NULL,
+              help="Path to coding Information"),
     
   make_option("--outName", type="character", default=NULL,
               help="Name of output")
@@ -28,7 +34,7 @@ option_list = list(
 opt_parser = OptionParser(option_list=option_list);
 opt = parse_args(opt_parser)
 
-if (is.null(opt$dataList) | is.null(opt$shapNo) | is.null(opt$outName)) {
+if (is.null(opt$dataList) | is.null(opt$shapNo) |is.null(opt$caABCList) | is.null(opt$codInf)|  is.null(opt$outName)) {
   print("You have to specify all inputs. Here is the help:")
   print_help(opt_parser)
   quit()
@@ -65,8 +71,17 @@ for(i in 2:nrow(inList)){
 	mainTab <- merge(mainTab, newTab, by = c(unlist(strsplit(inList$symEns[i],","))), all.x = TRUE, all.y = TRUE)
 }
 
-#Impute missing to median
+#Reduce
+protCod <- fread(opt$codInf, data.table = FALSE, header = TRUE)
+colnames(protCod)[1:2] <- c("ensemblID", "symbol")
+caabc <- fread(opt$caABCList, data.table = FALSE, header = TRUE)
+mainTab <- mainTab[mainTab$symbol %in% protCod[,2],]
+idx <- match(mainTab$ensemblID, protCod$ensemblID)
+mainTab$symbol[is.na(mainTab$symbol)] <- protCod$symbol[idx][is.na(mainTab$symbol)]
 mainTab <- mainTab[!(is.na(mainTab$ensemblID)),]
+mainTab <- mainTab[mainTab$ensemblID %in% caabc[,1],]
+
+#Impute missing to median
 for(i in 3:ncol(mainTab)){
 	mainTab[,i][is.na(mainTab[,i])] <- median(mainTab[,i], na.rm = TRUE)
 }
