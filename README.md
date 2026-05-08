@@ -13,7 +13,7 @@ The underlying framework is an extended isolation forest (Hariri et al. 2018). F
 *  inData.txt. This is a file providing information about the locations of the input files, which columns to consider, their names, if gene symbol/and or ensemblID are given, and if log transformation should be applied for the feature prior to EIFGP. An example can be found in the inLists folder.
 
 ##  How to run:
-Rscript --vanilla EIFGP.R --dataList ../data/inLists/inData.txt --shapNo 20 --outName myResults
+Rscript --vanilla EIFGP.R --dataList ../data/inLists/inData.txt --caABCList /path/to/mergedRepli.txt --codInf /path/to/rna_tissue_consensus.tsv --shapNo 20 --outName myResults
 
 ##  Output
 *  Extended isolation forest results
